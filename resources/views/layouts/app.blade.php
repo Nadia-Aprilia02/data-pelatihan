@@ -12,15 +12,39 @@
 
     {{-- Navbar (optional) --}}
     <nav class="bg-white shadow-md mb-6">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-xl font-semibold text-gray-800">Sistem Pelatihan</h1>
-            <div class="space-x-4">
-                <a href="{{ url('/') }}" class="text-gray-600 hover:text-blue-600">Home</a>
-                <a href="{{ url('/pelatihans') }}" class="text-gray-600 hover:text-blue-600">Pelatihan</a>
-                <a href="{{ url('/dashboard') }}" class="text-gray-600 hover:text-blue-600">Dashboard</a>
-            </div>
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+
+        <h1 class="text-xl font-semibold text-gray-800">
+            Sistem Pelatihan
+        </h1>
+
+        <div class="flex items-center space-x-6">
+
+            <a href="{{ url('/') }}" class="text-gray-600 hover:text-blue-600">Home</a>
+            <a href="{{ url('/pelatihans') }}" class="text-gray-600 hover:text-blue-600">Pelatihan</a>
+            <a href="{{ url('/dashboard') }}" class="text-gray-600 hover:text-blue-600">Dashboard</a>
+
+            @auth
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit"
+                        class="cursor-pointer text-red-500 hover:text-red-700 font-semibold">
+                        Logout
+                    </button>
+                </form>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                    Login
+                </a>
+            @endguest
+
         </div>
-    </nav>
+
+    </div>
+</nav>
+
 
     {{-- Main content --}}
     <main class="max-w-7xl mx-auto px-4">
@@ -32,5 +56,5 @@
         <p>&copy; 2025 Sistem Pelatihan</p>
     </footer>
 
-</body>
+</body> 
 </html>

@@ -1,18 +1,25 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
 
-<div class="container mt-4">
+<div class="container mx-auto px-4 mt-4 flex flex-col">
 
     {{-- Header & Search --}}
-    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-        <h3 class="fw-bold text-dark mb-0">📋 Data Pelatihan</h3>
-        <div class="d-flex align-items-center gap-2">
-            <input type="text" id="search" class="form-control search-box"
-                   placeholder="Cari data..." style="width: 180px;">
-            <a href="{{ route('pelatihans.create') }}" class="btn btn-primary px-3">+ Tambah</a>
-        </div>
+    <div class="flex justify-between items-center mb-4">
+    <h3 class="text-2xl font-bold text-gray-800">📋 Data Pelatihan</h3>
+
+    <div class="flex items-center space-x-3">
+        <input type="text" id="search"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                placeholder="Cari data..." style="width: 180px;">
+
+        <a href="{{ route('pelatihans.create') }}"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+            + Tambah
+        </a>
     </div>
+</div>
+
 
     {{-- Table --}}
     <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
@@ -108,15 +115,32 @@
                                 {{ $p->berhak_sertifikasi ?? 'Belum' }}
                             </span>
                         </td>
-                        <td class="text-center">
-                            <a href="{{ route('pelatihans.show', $p->id) }}" class="btn btn-info btn-sm">Detail</a>
-                            <a href="{{ route('pelatihans.edit', $p->id) }}" class="btn btn-warning btn-sm me-1">✏️</a>
-                            <form action="{{ route('pelatihans.destroy', $p->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm">🗑️</button>
-                            </form>
-                        </td>
+                        <td class="text-center flex items-center justify-center space-x-2">
+
+                {{-- Detail --}}
+                <a href="{{ route('pelatihans.show', $p->id) }}"
+                class="px-3 py-1 text-white text-sm rounded bg-blue-500 hover:bg-blue-600">
+                    Detail
+                </a>
+
+                {{-- Edit --}}
+                <a href="{{ route('pelatihans.edit', $p->id) }}"
+                class="px-3 py-1 text-white text-sm rounded bg-yellow-500 hover:bg-yellow-600">
+                    Edit
+                </a>
+
+                {{-- Delete --}}
+                <form action="{{ route('pelatihans.destroy', $p->id) }}" method="POST"
+                    onsubmit="return confirm('Yakin ingin menghapus data?')">
+                    @csrf
+                    @method('DELETE')
+                    <button class="px-3 py-1 text-white text-sm rounded bg-red-500 hover:bg-red-600">
+                        Delete
+                    </button>
+                </form>
+
+            </td>
+
                     </tr>
                     @endforeach
                 </tbody>
